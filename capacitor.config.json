@@ -1,0 +1,19 @@
+{
+  "appId": "com.habittrackerpro.app",
+  "appName": "HABIT TRACKER PRO",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "android": {
+    "backgroundColor": "#0f172a",
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#a855f7"
+    },
+    "StatusBar": {
+      "overlaysWebView": false
+    }
+  }
+}

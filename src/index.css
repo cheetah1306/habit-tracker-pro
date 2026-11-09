@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap");
+@import "./styles/tokens.css";
+@import "./styles/animations.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Universal theme transition — covers every element smoothly */
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition:
+      background-color var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      background var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      color var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      border-color var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      opacity var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      fill var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1),
+      stroke var(--theme-speed) cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  html, body, #root {
+    min-height: 100%;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    -ms-touch-action: pan-y;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  input, textarea, select, [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+    font-size: 16px !important; /* Prevents auto-zoom on input focus in iOS Safari */
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    background:
+      radial-gradient(circle at top left, rgba(16, 185, 129, 0.08), transparent 30%),
+      radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.07), transparent 26%),
+      radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.06), transparent 28%),
+      #f8fafc;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid rgba(16, 185, 129, 0.24);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgba(16, 185, 129, 0.2);
+  }
+}
+
+@layer components {
+   /* ── Liquid glass surfaces ────────────────────────────────────── */
+   .surface {
+     background: var(--glass-panel);
+     border: 1px solid var(--glass-border);
+     box-shadow: var(--glass-shadow);
+     backdrop-filter: blur(var(--glass-blur));
+     -webkit-backdrop-filter: blur(var(--glass-blur));
+     position: relative;
+     overflow: hidden;
+   }
+
+   /* Adds a subtle top-edge highlight like real refracted glass */
+   .surface::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     border-radius: inherit;
+     background: var(--glass-shimmer);
+     pointer-events: none;
+     z-index: 0;
+     opacity: 0.7;
+   }
+
+   .surface > * {
+     position: relative;
+     z-index: 1;
+   }
+
+   .surface-strong {
+     background: var(--glass-panel-strong);
+     border: 1px solid var(--glass-border-accent);
+     box-shadow: var(--glass-shadow-strong);
+     backdrop-filter: blur(var(--glass-blur-strong));
+     -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+     position: relative;
+     overflow: hidden;
+   }
+
+   .surface-strong::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     border-radius: inherit;
+     background: var(--glass-shimmer);
+     pointer-events: none;
+     z-index: 0;
+     opacity: 0.5;
+   }
+
+   .surface-strong > * {
+     position: relative;
+     z-index: 1;
+   }
+
+   .display-font {
+     font-family: "Poppins", sans-serif;
+   }
+
+   .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: var(--tw-gradient-stops), radial-gradient(circle at 1px 1px, rgba(26, 31, 58, 0.05) 1px, transparent 0);
+    background-size: auto, 12px 12px;
+    z-index: 0;
+  }
+
+  /* Disable expensive grain on mobile for major perf win */
+  @media (max-width: 1024px) {
+    .grain::before {
+      display: none;
+    }
+  }
+
+   .glass {
+     background: rgba(255, 255, 255, 0.04);
+     border: 1px solid rgba(255, 255, 255, 0.07);
+     backdrop-filter: blur(12px);
+   }
+
+   .hover-glow:hover {
+     box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+   }
+
+   .smooth-transition {
+     transition: all 0.3s ease;
+   }
+
+   .tab-ring {
+     box-shadow: inset 0 -2px 0 var(--teal);
+   }
+
+   .card-enter {
+     animation: riseIn var(--speed-slow) ease both;
+   }
+
+   .sheet-enter {
+     animation: sheetIn var(--speed-slow) ease both;
+   }
+
+   .drawer-enter {
+     animation: drawerIn var(--speed-slow) ease both;
+   }
+
+   /* GPU-accelerated cards for smooth scrolling */
+   .surface, .surface-strong {
+     transform: translateZ(0);
+     -webkit-transform: translateZ(0);
+   }
+
+   .streak-glow {
+    animation: cardPulse 1.2s ease-out;
+   }
+
+   /* ── Theme toggle button ──────────────────────────────────────── */
+   .theme-toggle {
+     position: relative;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     width: 44px;
+     height: 44px;
+     border-radius: 50%;
+     background: var(--glass-panel);
+     border: 1px solid var(--glass-border);
+     box-shadow: var(--glass-shadow);
+     backdrop-filter: blur(var(--glass-blur));
+     -webkit-backdrop-filter: blur(var(--glass-blur));
+     cursor: pointer;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+     overflow: hidden;
+   }
+
+   .theme-toggle::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     border-radius: inherit;
+     background: var(--glass-shimmer);
+     pointer-events: none;
+     opacity: 0.6;
+   }
+
+   .theme-toggle:hover {
+     transform: scale(1.1);
+     box-shadow: var(--glass-shadow-strong), 0 0 24px rgba(16, 185, 129, 0.2);
+   }
+
+   .theme-toggle:active {
+     transform: scale(0.95);
+   }
+
+   .theme-toggle svg {
+     position: relative;
+     z-index: 1;
+     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+   }
+
+   .theme-toggle:hover svg {
+     transform: rotate(15deg);
+   }
+ }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

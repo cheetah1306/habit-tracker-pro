@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Production build
+dist/
+
+# Large binaries & JDK downloads
+jdk21.zip
+.jdk17/
+.jdk21/
+*.apk
+*.aab
+
+# Android build outputs and caches
+.gradle/
+**/android/.gradle/
+**/android/.jdk17/
+**/android/.kotlin/
+**/android/local.properties
+**/android/build/
+**/android/app/build/
+**/android/capacitor-cordova-android-plugins/build/
+**/android/.cxx/
+**/android/captures/
+
+# Certificates and Secrets
+.certs/
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
